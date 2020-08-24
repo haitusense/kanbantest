@@ -41,10 +41,7 @@
             var matches = regExp.exec(issues[0].body);
 
 	    console.log(matches[1]);
-	    
             var doc = jsyaml.load(matches[1]);
-	    console.log(jsyaml);
-
 
 	    document.getElementById("area1").innerText = jsyaml.dump(doc.Pre.State);
 	  })
