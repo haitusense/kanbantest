@@ -6,7 +6,7 @@
   <body>
     <h1>add test</h1>
     <p>
-<form name="myform" onsubmit="checkText()">
+<form name="myform" onsubmit="return checkText()">
 <table border="0">
   <tr>
     <td align="right"><b> 名前：</b></td>
@@ -31,9 +31,10 @@
     <script>
       function checkText() {
  
-          //入力ボックスの内容を表示する
+          
           alert( document.myform.mytext.value );
- 
+        retutn false;
+           document.myform.action = "/sample.html";
       }
     </script>
 
