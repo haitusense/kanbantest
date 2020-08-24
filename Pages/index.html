@@ -7,8 +7,8 @@
     <h1>Browser test for <code>@octokit/request</code></h1>
     <p>
       Test case for
-      <a href="https://github.com/octokit/request.js/issues/109"
-        >octokit/request.js#109</a
+      <a href="https://github.com/haitusense/kanbantest/issues/1"
+        >issues#1</a
       >
 
     </p>
@@ -22,7 +22,7 @@
       async function myAsyncMethod() {
         const result = await request("GET /");
         console.log(result.data);
-        document.getElementById("area1").innerText = "変更しました";
+        document.getElementById("area1").innerText = result.data;
       }
     </script>
   </body>
