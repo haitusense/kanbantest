@@ -1,1 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>add test</title>
+  </head>
+  <body>
+    <h1>add test</h1>
+    <p>
+<form name="myform" onsubmit="checkText()">
+<table border="0">
+  <tr>
+    <td align="right"><b> 名前：</b></td>
+    <td><input type="text" name="name" size="30" maxlength="20"></td>
+  </tr>
+  <tr>
+    <td align="right"><b> パスワード：</b></td>
+    <td><input type="password" name="pass" size="6" maxlength="4"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <input type="submit" value="送信">
+      <input type="reset" value="リセット">
+    </td>
+  </tr>
+</table>
+</form>
+    </p>
 
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
+    <script type="module">
+      function checkText() {
+ 
+          //入力ボックスの内容を表示する
+          alert( document.myform.mytext.value );
+ 
+      }
+    </script>
+
+  </body>
+</html>
