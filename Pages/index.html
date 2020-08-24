@@ -20,8 +20,10 @@
       myAsyncMethod();
 
       async function myAsyncMethod() {
-        const result = await request("GET /");
-        console.log(result);
+        const result = await request({
+          method: "GET",
+        });
+        console.log(result.data);
         document.getElementById("area1").innerText = result.data;
       }
     </script>
