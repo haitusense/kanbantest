@@ -24,8 +24,15 @@
           method: "GET",
         });
         console.log(result.data);
-        document.getElementById("area1").innerText = result.data;
-      }
+
+        octokit.paginate(octokit.issues.listForRepo, {
+          owner: 'haitusense',
+          repo: 'kanbantest'
+        }).then(issues => {
+          document.getElementById("area1").innerText = issues;
+        })
+      })
+    }
     </script>
   </body>
 </html>
