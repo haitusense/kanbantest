@@ -4,39 +4,64 @@
     <title>add test</title>
   </head>
   <body>
-    <h1>add test</h1>
+    <h1>テンプレート生成</h1>
     <p>
-<form name="myform" onsubmit="return checkText()">
-<table border="0">
-  <tr>
-    <td align="right"><b> 名前：</b></td>
-    <td><input type="text" name="name" size="30" maxlength="20"></td>
-  </tr>
-  <tr>
-    <td align="right"><b> パスワード：</b></td>
-    <td><input type="password" name="pass" size="6" maxlength="4"></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>
-      <input type="submit" value="送信">
-      <input type="reset" value="リセット">
-    </td>
-  </tr>
-</table>
-</form>
+      <form name="myform">
+        <table border="0">
+          <tr>
+            <td align="right"><b> パスワード：</b></td>
+            <td><input type="password" name="pass" size="6" maxlength="40"></td>
+          </tr>
+
+          <tr>
+            <td align="right"><b> 自動採番：</b></td>
+            <td><input type="text" name="lotno" size="30" maxlength="20"></td>
+          </tr>
+
+          <tr>
+            <td align="right"><b> 名前：</b></td>
+            <td><input type="text" name="name" size="30" maxlength="20"></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <input type="submit" value="送信" />
+              <input type="reset" value="reset" />
+            </td>
+          </tr>
+        </table>
+      </form>
     </p>
 
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
-    <script>
-      function checkText() {
- 
-          
-          alert( document.myform.mytext.value );
-        retutn false;
-           document.myform.action = "/sample.html";
-      }
-    </script>
+    <script type='module'>
+      import { request } from "https://cdn.pika.dev/@octokit/request";
+      import { Octokit } from "https://cdn.pika.dev/@octokit/rest";
+      
+      var dt = new Date();
+      var y = dt.getFullYear();
+      var m = ("00" + (dt.getMonth()+1)).slice(-2);
+      var d = ("00" + dt.getDate()).slice(-2);
+      document.myform.lotno.value = "model-" + y + m + d;
 
+      document.myform.addEventListener('submit', function() {
+        try {
+          var octokit = new Octokit({
+            auth: document.myform.pass.value
+          });
+          octokit.issues.create({ 
+            owner: 'haitusense', 
+            repo: 'kanbantest',
+            title: 'kanbantest'
+          });
+          event.preventDefault();
+          //document.myform.action = "/sample.html";
+        }
+        catch (e) {
+          console.log(e);
+        }
+      },false);
+    </script>
   </body>
 </html>
