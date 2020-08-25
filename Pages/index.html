@@ -2,16 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>@octokit/request test</title>
+    <title>request test</title>
   </head>
   <body>
-    <h1>Browser test for <code>@octokit/request</code></h1>
+    <h1>Browser test</h1>
     <p>
       Test case for
       <a href="https://github.com/haitusense/kanbantest/issues/1"
         >issues#1</a
       >
-
     </p>
     <div id="area1">変更前</div>
 
@@ -19,6 +18,7 @@
     <script type="module">
       import { request } from "https://cdn.pika.dev/@octokit/request";
       import { Octokit } from "https://cdn.pika.dev/@octokit/rest";
+      //import { jsyaml } from "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js";
 
       const octokit = new Octokit();
 
@@ -31,22 +31,25 @@
         });
         console.log(result.data);
 
+        const options = octokit.issues.listForRepo.endpoint.merge({ 
+          owner: 'haitusense', 
+          repo: 'kanbantest' 
+        });
+        const regExp = /```ver : 0.1([^)]+)```/gm;
+	      octokit.paginate(options).then(issues => {
+          issues.forEach(element => {
+            //console.log(element.body);
 
-	const options = octokit.issues.listForRepo.endpoint.merge({ owner: 'haitusense', repo: 'kanbantest' })
-	octokit.paginate(options)
-	  .then(issues => {
-	    console.log(issues[0].body);
+            var matches = regExp.exec(element.body);
+            if(matches != null){
+              console.log(matches[1]);
+              var doc = jsyaml.load(matches[1]);
+              document.getElementById("area1").innerText = jsyaml.dump(doc.Pre.State);
+            }
 
-            var regExp = /```ver : 0.1([^)]+)```/gm;
-            var matches = regExp.exec(issues[0].body);
-
-	    console.log(matches[1]);
-            var doc = jsyaml.load(matches[1]);
-
-	    document.getElementById("area1").innerText = jsyaml.dump(doc.Pre.State);
-	  })
-    }
+          });
+	      })
+      }
     </script>
-
   </body>
 </html>
