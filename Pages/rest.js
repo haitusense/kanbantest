@@ -1,6 +1,8 @@
 import { request } from "https://cdn.pika.dev/@octokit/request";
 import { Octokit } from "https://cdn.pika.dev/@octokit/rest";
 
+const octokit = new Octokit();
+
 export async function GetYamlContent(path){
   return octokit.repos.getContent({
     owner: path.owner, 
