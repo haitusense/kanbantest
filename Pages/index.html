@@ -1,4 +1,3 @@
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,43 +12,78 @@
       >
     </p>
     <div id="area1">変更前</div>
-
+    
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
     <script type="module">
+
       import { request } from "https://cdn.pika.dev/@octokit/request";
       import { Octokit } from "https://cdn.pika.dev/@octokit/rest";
-      //import { jsyaml } from "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js";
-
+      
       const octokit = new Octokit();
+      const owner = 'haitusense'; 
+      const repo = 'kanbantest'; 
 
-      myAsyncMethod();
+      //myAsyncMethod();
+      myGetIssueMethod();
 
       async function myAsyncMethod() {
-
         const result = await request({
           method: "GET",
         });
         console.log(result.data);
-
-        const options = octokit.issues.listForRepo.endpoint.merge({ 
-          owner: 'haitusense', 
-          repo: 'kanbantest' 
-        });
-        const regExp = /```ver : 0.1([^)]+)```/gm;
-	      octokit.paginate(options).then(issues => {
-          issues.forEach(element => {
-            //console.log(element.body);
-
-            var matches = regExp.exec(element.body);
-            if(matches != null){
-              console.log(matches[1]);
-              var doc = jsyaml.load(matches[1]);
-              document.getElementById("area1").innerText = jsyaml.dump(doc.Pre.State);
-            }
-
-          });
-	      })
       }
+    
+
+      async function myGetIssueMethod() {
+        
+        const options = octokit.issues.listForRepo.endpoint.merge({ 
+          owner: owner, 
+          repo: repo 
+        });
+        octokit.paginate(options).then(issues => {
+          issues.forEach(element => {
+            console.log("title : " + element.title);
+            //console.log(element);
+            var k = MergeIssueYaml(element);
+            if(k != null){
+              console.log(k);
+              document.getElementById("area1").innerText = jsyaml.dump(k.Pre.State);
+            }
+          });
+        })
+      }
+
+      function MergeIssueYaml(element){
+        let issuebody = element.body;
+        let issuenum = element.number;
+
+        var yaml = MarkdownToYaml(issuebody);
+        if(yaml == null) return null;
+
+        octokit.issues.listComments({
+          owner: owner, 
+          repo: repo,
+          issue_number : issuenum
+        }).then(comments => {
+          comments.data.forEach(element => {
+            var yaml2 = MarkdownToYaml(element.body);
+            if(yaml2 != null){
+              _.merge(yaml, yaml2)
+            }
+          });
+        });
+
+        return yaml;
+      }
+      
+      function MarkdownToYaml(body){
+        const regExp = /```([^)]+)```/gm;
+        var matches = regExp.exec(body);
+        if(matches == null) return null;
+        return jsyaml.load(matches[1]);
+      }
+
     </script>
   </body>
 </html>
