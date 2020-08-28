@@ -34,7 +34,7 @@ export class GithubREST {
   }
   
   async getYamlContent(owner, repo, path){
-    return octokit.repos.getContent({
+    return this.octokit.repos.getContent({
       owner: owner, 
       repo: repo,
       path: path
@@ -45,7 +45,5 @@ export class GithubREST {
       return null;
     });
   }
-  
-  
-  
+
 }
