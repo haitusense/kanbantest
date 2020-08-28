@@ -1,4 +1,22 @@
-data :
+#ProcessData
+Process1 :   
+  Fab-A :
+    period : 90
+  Fab-B :
+    period : 90
+  Fab-B_Trial :
+    period : 90
+  Fab-B_Shuttle :
+    period : 60
+Process2 :   
+  Fab-D :
+    period : 30
+#ModelData
+Model :
+  Model-1:
+  Model-2:  
+#Other
+Name :
   - a
   - b
   - c
