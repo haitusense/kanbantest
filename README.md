@@ -1,7 +1,8 @@
 # kanbantest
 
 GitHub Pages  
-<https://haitusense.github.io/kanbantest/Pages/>
+<https://haitusense.github.io/kanbantest/Pages/>  
+<https://haitusense.github.io/kanbantest/Pages/add.html>  
 
 ## Github制限
 
@@ -20,3 +21,20 @@ GitHub Pages
 <https://github.com/settings/tokens>
 
 権限のスコープ:repo にチェック
+
+## フローイメージ
+
+```
+[Planed]  ← REST        - テンプレート登録 (Travel No. + yaml Data)
+ ↓        ← REST or web - 承認, 差戻コメント
+[Process1]
+ ↓        ← REST or web - 成績表（Travel No. + File, yaml or comment更新） 
+[Process2]
+ .        ← REST or web - 成績表（Travel No. + File, yaml or comment更新） 
+ .
+[Done]    - REST        → View（Gannt, Map） 
+
+[request]  ← REST        - 依頼登録 (Travel No. + yaml Data)
+ ↓         ← REST or web - 成績表
+[Done]
+```
