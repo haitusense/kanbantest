@@ -1,17 +1,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>request test</title>
+    <title>Request test</title>
   </head>
   <body>
-    <h1>Browser test</h1>
+    <h1>Request test</h1>
     <p>
       Test case for
       <a href="https://github.com/haitusense/kanbantest/issues/1"
         >issues#1</a
       >
+	</br>
+	</br>
+      Debug Console by Chrome : shift + Ctrl + I
     </p>
-    <div id="area1">変更前</div>
+    <div id="result1">Result</div>
     
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
@@ -24,7 +27,7 @@
       const owner = 'haitusense'; 
       const repo = 'kanbantest'; 
 
-      //myAsyncMethod();
+      myAsyncMethod();
       myGetIssueMethod();
 
       async function myAsyncMethod() {
@@ -48,7 +51,7 @@
             var k = MergeIssueYaml(element);
             if(k != null){
               console.log(k);
-              document.getElementById("area1").innerText = jsyaml.dump(k.Pre.State);
+              document.getElementById("result1").innerText = jsyaml.dump(k.Pre.State);
             }
           });
         })
