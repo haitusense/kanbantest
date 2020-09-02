@@ -1,8 +1,8 @@
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
 // <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
-import { request } from "https://cdn.pika.dev/@octokit/request";
-import { Octokit } from "https://cdn.pika.dev/@octokit/rest";
+import { request } from "https://cdn.skypack.dev/@octokit/request";
+import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 
 export function MarkdownToYaml(src){
   const regExp = /```([^)]+)```/gm;
