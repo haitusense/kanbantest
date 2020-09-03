@@ -17,10 +17,6 @@ export function MarkdownToYaml(src){
 export class GithubREST {
 
   constructor(token) {
-    this.changeAuth(token);
-  }
-  
-  changeAuth(token) {
     if(token != null){
       this.octokit = new Octokit();
     }else{
@@ -28,6 +24,13 @@ export class GithubREST {
         auth: token
       });
     }
+  }
+  
+  changeAuth(accessToken) {
+    octokit.authenticate({
+      type: 'token',
+      token: accessToken,
+    });
   }
 
   async asyncRequest() {
