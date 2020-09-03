@@ -6,11 +6,11 @@
   </head>
   <body>
     <h1>Map test</h1>
+    <div id="header1">Header</div>
+    <div id="result1">Result</div>
     <p>
-      </br>
       Debug Console by Chrome : shift + Ctrl + I
     </p>
-    <div id="result1">Result</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
@@ -60,8 +60,32 @@
         //Search Issue and Map
         document.getElementById("result1").innerHTML += '<pre>' + CreateMap(dst) + '</pre></br>';
 
+        //Create Header
+        document.getElementById("header1").innerHTML = '<pre>' + CreateGraph(dst) + '</pre></br>';
+
+        mermaid.initialize({
+          startOnLoad:true,
+          theme: 'forest',
+          flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+          }
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+        
       })();
-          
+      
+      function CreateGraph(src) {  
+        var dst = '<code class="language-mermaid">'
+        dst += "graph LR\r\n";
+        dst += "A(Planed) --> B\r\n";
+        dst += "B[Process-1] --> C\r\n";
+        dst += "C[Process-2] --> E[Done]\r\n";
+        dst += "style B fill:#f9f\r\n";
+        dst += "</code>";
+        return dst;
+      }
+ 
       function CreateMap(src) {
         return 'Wf Map\r\n' 
           + '..' + src["1"].bin + src["2"].bin + '..' + '\r\n'
