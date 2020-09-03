@@ -62,7 +62,7 @@ export class GithubREST {
     }
   }
   
-  async asyncMergeIssueYaml(issue){
+  async asyncMergeIssueYaml(owner, repo, issue){
     var dst = MarkdownToYaml(issue.body);
     if(dst == null){
       return null;
