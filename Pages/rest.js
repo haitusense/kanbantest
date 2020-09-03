@@ -75,7 +75,7 @@ export class GithubREST {
       return null;
     }else{
       console.log("url : " + issues[0].html_url);
-      let issue = await this.asyncMergeIssueYaml(issues[0]);
+      let issue = await this.asyncMergeIssueYaml(owner, repo, issues[0]);
       return issue;
     }
   }
