@@ -58,5 +58,24 @@ export class GithubREST {
       return jsyaml.load(dst);
     }
   }
-
+  
+  async asyncMergeIssueYaml(issue){
+    var dst = MarkdownToYaml(issue.body);
+    if(dst == null){
+      return null;
+    }else{
+      await octokit.issues.listComments({
+        owner: owner, 
+        repo: repo,
+        issue_number : issue.number
+      }).then(comments => {
+        comments.data.forEach(element => {
+          let yaml = MarkdownToYaml(element.body);
+          if(yaml != null) _.merge(dst, yaml);
+        });
+      });
+      return dst;
+    }
+  }
+     
 }
