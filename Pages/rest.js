@@ -28,7 +28,7 @@ export class GithubREST {
   }
   
   changeAuth(accessToken) {
-    octokit.authenticate({
+    this.octokit.authenticate({
       type: 'token',
       token: accessToken,
     });
@@ -54,7 +54,7 @@ export class GithubREST {
     if(dst == null){
       return null;
     }else{
-      await octokit.issues.listComments({
+      await this.octokit.issues.listComments({
         owner: owner, 
         repo: repo,
         issue_number : issue.number
