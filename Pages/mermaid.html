@@ -3,12 +3,25 @@
     
   </head>
   <body>
-    <pre><code class="language-mermaid">graph LR
-      A--&gt;B--&gt;
+    <pre><code class="language-mermaid">
+      graph LR
+        A(Planed) --> B
+        B[Process-1] --> C
+        C[Process-2] --> D[Stop]
+        C --> E[Done]
+        style B fill:#f9f
     </code></pre>
 
-    <div class="mermaid">graph LR
-      A--&gt;B
+    <div class="mermaid">
+      gantt
+	      title Progress Diagram
+	      dateFormat  YYYY-MM-DD
+	      section Lot-1
+	        Process-1 : crit, a1, 2014-01-01, 60d
+	        Process-2 :       a2, after a1  , 20d
+	      section Lot-2
+	        Process-1 :       b1, 2014-03-01, 60d
+	        Process-2 :       b2, after b1, 20d
     </div>
   </body>
   
