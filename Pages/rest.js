@@ -30,24 +30,33 @@ export class GithubREST {
     }
   }
 
-  async myAsyncMethod() {
+  async asyncRequest() {
     const result = await request({
       method: "GET",
     });
     console.log(result.data);
   }
   
-  async getYamlContent(owner, repo, path){
+  async asyncGetContent(owner, repo, path){
     return this.octokit.repos.getContent({
       owner: owner, 
       repo: repo,
       path: path
     }).then(result => {
-      let content = buffer.Buffer.from(result.data.content, 'base64').toString();
-      return jsyaml.load(content);
+      return buffer.Buffer.from(result.data.content, 'base64').toString();
     }, e =>{
       return null;
     });
+  }
+
+  async asyncGetContentToYaml(owner, repo, path){
+    let dst = await this.asyncGetContent(owner, repo, path);
+    if(dst == null){
+      return null;
+    }
+    else{
+      return jsyaml.load(dst);
+    }
   }
 
 }
