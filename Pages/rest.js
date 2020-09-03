@@ -1,5 +1,6 @@
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
 // <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+// <script src="https://bundle.run/buffer"></script>
 
 import { request } from "https://cdn.skypack.dev/@octokit/request";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
@@ -75,12 +76,15 @@ export class GithubREST {
       return null;
     }else{
       console.log("url : " + issues[0].html_url);
-      let issue = await this.asyncMergeIssueYaml(owner, repo, issues[0]);
-      return issue;
+      var dst = await this.asyncMergeIssueYaml(owner, repo, issues[0]);
+      _.merge(dst, {
+        url : issues[0].html_url
+      });
+      return dst;
     }
   }
-  
-  async function asyncGetIssuesFromTitle(owner, repo, title) {
+
+  async asyncGetIssuesFromTitle(owner, repo, title) {
     return this.octokit.search.issuesAndPullRequests({
       q : title + ' in:title type:issue',
     }).then(response => {
