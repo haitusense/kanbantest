@@ -40,6 +40,54 @@ export class GithubREST {
     console.log(result.data);
   }
   
+  async asyncGetIssuesFromTitle(owner, repo, title) {
+    return this.octokit.search.issuesAndPullRequests({
+      q : title + ' in:title type:issue',
+    }).then(response => {
+      return response.data.items;
+    }).catch(err => console.error(err));
+  }
+  
+  async asyncMergeIssueYaml(owner, repo, issue){
+    var dst = MarkdownToYaml(issue.body);
+    if(dst == null){
+      return null;
+    }else{
+      await octokit.issues.listComments({
+        owner: owner, 
+        repo: repo,
+        issue_number : issue.number
+      }).then(comments => {
+        comments.data.forEach(element => {
+          let yaml = MarkdownToYaml(element.body);
+          if(yaml != null) _.merge(dst, yaml);
+        });
+      });
+      return dst;
+    }
+  }
+  
+  async asyncGetIssueYamlFromTitle(owner, repo, title){
+    let issues = await this.asyncGetIssuesFromTitle(owner, repo, title)
+    if(issues.length != 1){
+      console.log("err");
+      console.log(issues);
+      return null;
+    }else{
+      console.log("url : " + issues[0].html_url);
+      let issue = await this.asyncMergeIssueYaml(issues[0]);
+      return issue;
+    }
+  }
+  
+  async function asyncGetIssuesFromTitle(owner, repo, title) {
+    return this.octokit.search.issuesAndPullRequests({
+      q : title + ' in:title type:issue',
+    }).then(response => {
+      return response.data.items;
+    }).catch(err => console.error(err));
+  }
+  
   async asyncGetContent(owner, repo, path){
     return this.octokit.repos.getContent({
       owner: owner, 
@@ -62,23 +110,6 @@ export class GithubREST {
     }
   }
   
-  async asyncMergeIssueYaml(owner, repo, issue){
-    var dst = MarkdownToYaml(issue.body);
-    if(dst == null){
-      return null;
-    }else{
-      await octokit.issues.listComments({
-        owner: owner, 
-        repo: repo,
-        issue_number : issue.number
-      }).then(comments => {
-        comments.data.forEach(element => {
-          let yaml = MarkdownToYaml(element.body);
-          if(yaml != null) _.merge(dst, yaml);
-        });
-      });
-      return dst;
-    }
-  }
+
      
 }
