@@ -1,92 +1,74 @@
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Request test</title>
+    <title>Map test</title>
   </head>
   <body>
-    <h1>Request test</h1>
+    <h1>Map test</h1>
     <p>
-      Test case for
-      <a href="https://github.com/haitusense/kanbantest/issues/1"
-        >issues#1</a
-      >
-	</br>
-	</br>
+      </br>
       Debug Console by Chrome : shift + Ctrl + I
     </p>
     <div id="result1">Result</div>
-    
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
-    <script type='text/javascript' src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script src="https://bundle.run/buffer"></script>
     <script type="module">
 
-      import { request } from "https://cdn.skypack.dev/@octokit/request";
-      import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+      import { MarkdownToYaml, GithubREST } from "https://haitusense.github.io/kanbantest/Pages/rest.js";
       
-      const octokit = new Octokit();
+      const auth = null;
       const owner = 'haitusense'; 
       const repo = 'kanbantest'; 
+      const report = 'Reports/'; 
+      const lotname = 'Lot 20202H001'; 
+      const githubREST = new GithubREST(auth);
 
-      myAsyncMethod();
-      myGetIssueMethod();
+      const Run = (async () => {
 
-      async function myAsyncMethod() {
-        const result = await request({
-          method: "GET",
-        });
-        console.log(result.data);
+        //Search Issues
+        console.log("Search Issues");
+
+        let issues = await githubREST.asyncGetIssuesFromTitle(owner, repo, lotname);
+        if(issues.length != 1){
+          console.log("err");
+          console.log(issues);
+          return;
+        }else{
+          console.log("url : " + issues[0].html_url);
+          
+          //yaml from lot
+          console.log("Travel Body");
+          let body = await githubREST.asyncMergeIssueYaml(owner, repo, issues[0]);
+          console.log(body);
+
+        }
+
+        //Search Issue and Map
+        console.log("Search Issue");
+        let issue = await githubREST.asyncGetIssueYamlFromTitle(owner, repo, lotname);
+
+        //document.getElementById("result1").innerText = jsyaml.dump(k.Pre.State);
+        document.getElementById("result1").innerHTML = '<a href="' + issue.url + '">' + lotname + '</a></br>';
+        
+        //let dst1 = await githubREST.asyncGetContent(owner, repo, report + issue.Pre.Report);
+        let dst = await githubREST.asyncGetContentToYaml(owner, repo, report + issue.Pre.Report);      
+        document.getElementById("result1").innerHTML += '<pre>' + jsyaml.dump(dst) + '</pre></br>';
+
+        //Search Issue and Map
+        document.getElementById("result1").innerHTML += '<pre>' + CreateMap(dst) + '</pre></br>';
+
+      })();
+          
+      function CreateMap(src) {
+        return 'Wf Map\r\n' 
+          + '..' + src["1"].bin + src["2"].bin + '..' + '\r\n'
+          + '.' + src["3"].bin + src["4"].bin + src["5"].bin + src["6"].bin + '.' + '\r\n'
+          + '..' + src["7"].bin + src["8"].bin + '..' + '\r\n';
       }
     
-
-      async function myGetIssueMethod() {
-        
-        const options = octokit.issues.listForRepo.endpoint.merge({ 
-          owner: owner, 
-          repo: repo 
-        });
-        octokit.paginate(options).then(issues => {
-          issues.forEach(element => {
-            console.log("title : " + element.title);
-            //console.log(element);
-            var k = MergeIssueYaml(element);
-            if(k != null){
-              console.log(k);
-              document.getElementById("result1").innerText = jsyaml.dump(k.Pre.State);
-            }
-          });
-        })
-      }
-
-      function MergeIssueYaml(element){
-        let issuebody = element.body;
-        let issuenum = element.number;
-
-        var yaml = MarkdownToYaml(issuebody);
-        if(yaml == null) return null;
-
-        octokit.issues.listComments({
-          owner: owner, 
-          repo: repo,
-          issue_number : issuenum
-        }).then(comments => {
-          comments.data.forEach(element => {
-            var yaml2 = MarkdownToYaml(element.body);
-            if(yaml2 != null){
-              _.merge(yaml, yaml2)
-            }
-          });
-        });
-
-        return yaml;
-      }
-      
-      function MarkdownToYaml(body){
-        const regExp = /```([^)]+)```/gm;
-        var matches = regExp.exec(body);
-        if(matches == null) return null;
-        return jsyaml.load(matches[1]);
-      }
-
     </script>
   </body>
 </html>
