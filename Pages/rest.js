@@ -4,6 +4,7 @@
 
 import { request } from "https://cdn.skypack.dev/@octokit/request";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
 
 export function MarkdownToYaml(src){
   const regExp = /```([^)]+)```/gm;
@@ -17,20 +18,31 @@ export function MarkdownToYaml(src){
 
 export class GithubREST {
 
-  constructor(token) {
-    if(token != null){
+  constructor(accessToken) {
+    if(accessToken != null){
       this.octokit = new Octokit();
+      this.graphqlWithAuth = graphql.defaults();
     }else{
       this.octokit = new Octokit({
-        auth: token
+        auth: accessToken
+      });
+      this.graphqlWithAuth = graphql.defaults({
+        headers: {
+          authorization: `token ${accessToken}`,
+        }
       });
     }
   }
-  
+ 
   changeAuth(accessToken) {
     this.octokit.authenticate({
       type: 'token',
       token: accessToken,
+    });
+    this.graphqlWithAuth = graphql.defaults({
+      headers: {
+        authorization: `token ${accessToken}`,
+      }
     });
   }
 
@@ -114,6 +126,33 @@ export class GithubREST {
     }
   }
   
-
-     
+  async asyncGetIssueEx(owner, repo, title){
+    let query = `{
+      search(query: "${title} in:title user:${owner} repo:${repo}", type: ISSUE, first: 10) {
+        edges {
+          node {
+            ... on Issue {
+              id
+              body
+              title
+              projectCards {
+                nodes {
+                  column {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+        issueCount
+      }
+    }`;
+    try {
+      return graphqlWithAuth(query);
+    } catch (error) {
+      console.log("Request failed:", error.request);
+      console.log(error.message);
+    }
+  }   
 }
