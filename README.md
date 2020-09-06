@@ -33,8 +33,10 @@ GitHub Pages
   - Basic 認証
   - OAuth2 Token（ヘッダに送信）
   - OAuth2 キー/シークレット -> 廃止
+  - グローバルノードでの呼び出しができない
 - GraphQL API v4
   - OAuthトークン必須
+
   
 privateへのアクセス前提なのでGraphQL API v4でよさそう
 
