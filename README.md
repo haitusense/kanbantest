@@ -14,9 +14,12 @@ GitHub Pages
 - issue数 : ?
   - REST APIは30～100件単位
 - Rate limiting (403 Forbidden)
-  - for unauthenticated requests : 60 requests per hour
-  - using Basic Authentication or OAuth : 5000 requests per hour
-  - search : 30req/min (10req/min w/o authenticated)
+  - REST API v3
+    - for unauthenticated requests : 60 requests per hour
+    - using Basic Authentication or OAuth : 5000 requests per hour
+    - search : 30req/min (10req/min w/o authenticated)
+  - GraphQL API v4
+    - 5,000 points per hour (is not the same as 5,000 calls per hour)
 - Github Pages (サイトホスティング) : プライベートでもパブリックアクセスになる
   - 1GB未満
   - 100GB/monthの帯域制限
