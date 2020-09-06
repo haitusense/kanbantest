@@ -33,7 +33,10 @@ GitHub Pages
   - Basic 認証
   - OAuth2 Token（ヘッダに送信）
   - OAuth2 キー/シークレット -> 廃止
-  - グローバルノードでの呼び出しができない
+  - エンドポイントが分かれているので一度にアクセスができない
+    - グローバルノードでの呼び出しができない
+    - issuesからcomments一度に読めない
+    - issuesからproject cardは```application/vnd.github.starfox-preview```で読める？
 - GraphQL API v4
   - OAuthトークン必須
 
