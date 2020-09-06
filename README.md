@@ -26,6 +26,18 @@ GitHub Pages
 - Project
   - 各プロジェクト列最大 2,500
 
+## API
+
+- REST API v3
+　- unauthenticated
+  - Basic 認証
+  - OAuth2 Token（ヘッダに送信）
+  - OAuth2 キー/シークレット -> 廃止
+- GraphQL API v4
+  - OAuthトークン必須
+  
+privateへのアクセス前提なのでGraphQL API v4でよさそう
+
 ## アクセストークン
 
 <https://github.com/settings/tokens>
