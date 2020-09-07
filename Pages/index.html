@@ -11,6 +11,8 @@
     <script type="module">
       import { request } from "https://cdn.skypack.dev/@octokit/request";
       const Run = (async () => {
+        let key = location.search;
+        console.log(key);
         console.log(await request("GET https://github.com/login/oauth/authorize"));
       })();
     
