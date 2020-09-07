@@ -11,7 +11,7 @@
     <form action="#" method="post">
       <p>Client Secret : <br>
       <input type="password" id="pass" name="pass"></p>
-      <input type="button" value="button" onclick="console.log(await onclick());">
+      <input type="button" value="button" onclick="gettoken()">
     </form>
     
     <script type="module">
@@ -24,13 +24,15 @@
         console.log(key);
       })();
             
-      async function onclick() {
-        let dst = await request("GET https://github.com/login/oauth/access_token",{
+      function gettoken() {
+        request("GET https://github.com/login/oauth/access_token",{
           client_id : "aabf80bed3afc1979637",
           client_secret : document.getElementById("pass"),
           code : key
+        }).then(dst=>{
+          console.log(dst);
         });
-        return dst;
+        return;
       }
         
     </script>
