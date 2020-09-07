@@ -24,7 +24,7 @@
         console.log(key);
       })();
             
-      function gettoken() {
+      export function gettoken() {
         request("GET https://github.com/login/oauth/access_token",{
           client_id : "aabf80bed3afc1979637",
           client_secret : document.getElementById("pass"),
