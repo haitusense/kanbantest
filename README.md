@@ -1,7 +1,7 @@
 # kanbantest
 
 GitHub Pages  
-<https://haitusense.github.io/kanbantest/Pages/>  
+<https://haitusense.github.io/kanbantest/Pages/issue.html>  
 <https://haitusense.github.io/kanbantest/Pages/mermaid.html>  
 <https://haitusense.github.io/kanbantest/Pages/add.html>  
 
