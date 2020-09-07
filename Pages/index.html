@@ -17,10 +17,8 @@
     <script type="module">
       import { request } from "https://cdn.skypack.dev/@octokit/request";
       import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
-      
-      let key = null;
-      
-      function gettoken() {
+            
+      function gettoken(key) {
         let client_id = "aabf80bed3afc1979637";
         let client_secret = document.getElementById("pass");
         fetch(`https://github.com/login/oauth/access_token?code=${key}&client_id=${client_id}&client_secret=${client_secret}')
@@ -31,11 +29,11 @@
       }
       
       const Run = (async () => {
-       key = ((new URL(document.location)).searchParams).get('code');
-        console.log(key);
+       let key = ((new URL(document.location)).searchParams).get('code');
+       console.log(key);
         
         //window.hello = hello
-        document.getElementById('btn').addEventListener('click', gettoken)
+        document.getElementById('btn').addEventListener('click', gettoken(key));
       })();
             
 
