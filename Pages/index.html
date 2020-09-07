@@ -8,6 +8,12 @@
     <div id="result1">Result</div>
     <a id="signinbutton" href="https://github.com/login/oauth/authorize?client_id=aabf80bed3afc1979637&scope=public_repo">Sign in with GitHub</a>
 
+    <form action="#" method="post">
+      <p>Client Secret : <br>
+      <input type="password" id="pass" name="pass"></p>
+      <div id="text-button"><p id="text">クリック</p></div>
+    </form>
+    
     <script type="module">
       import { request } from "https://cdn.skypack.dev/@octokit/request";
       import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
@@ -15,23 +21,30 @@
       const Run = (async () => {
        let key = ((new URL(document.location)).searchParams).get('code');
         console.log(key);
-        //console.log(await request("GET https://github.com/login/oauth/authorize"));
-      
-        const graphqlWithAuth = graphql.defaults({
-          headers: {
-            authorization: `token ${key}`,
-          }
-        });
-        let dst = await graphqlWithAuth(`{
-          repository(owner: "haitusense", name: "kanbantest") {
-            issue(number: 1) {
-              url
-              title
+        
+        document.getElementById("text-button").onclick = function() {        
+          let token = await request("GET https://github.com/login/oauth/access_token",{
+            client_id : "aabf80bed3afc1979637",
+            client_secret : document.getElementById("pass"),
+            code : key
+          });
+          console.log(token);
+          return;
+          let graphqlWithAuth = graphql.defaults({
+            headers: {
+              authorization: `token ${key}`,
             }
-          }
-        }`);
-        console.log(dst);
-      
+          });
+          let dst = await graphqlWithAuth(`{
+            repository(owner: "haitusense", name: "kanbantest") {
+              issue(number: 1) {
+                url
+                title
+              }
+            }
+          }`);
+          console.log(dst);
+        };    
       })();
     
     </script>
