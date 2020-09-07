@@ -6,13 +6,12 @@
   <body>
     <h1>OAuoth App</h1>
     <div id="result1">Result</div>
-    <a class="btn btn-sm btn-primary ml-2" target="_parent" id="signinbutton" rel="nofollow" data-method="post" 
-      href="/auth/github">Sign in with GitHub</a>
+    <a id="signinbutton" href="/auth/github">Sign in with GitHub</a>
 
     <script type="module">
       import { request } from "https://cdn.skypack.dev/@octokit/request";
       const Run = (async () => {
-
+        console.log(await request("GET https://github.com/login/oauth/authorize");)
       })();
     
     </script>
