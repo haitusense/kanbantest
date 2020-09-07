@@ -21,7 +21,7 @@
       function gettoken(key) {
         let client_id = "aabf80bed3afc1979637";
         let client_secret = document.getElementById("pass");
-        fetch(`https://github.com/login/oauth/access_token?code=${key}&client_id=${client_id}&client_secret=${client_secret}')
+        fetch(`https://github.com/login/oauth/access_token?code=${key}&client_id=${client_id}&client_secret=${client_secret}`)
         .then(dst => {
           console.log(dst);
         });
