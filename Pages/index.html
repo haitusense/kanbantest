@@ -11,7 +11,7 @@
     <form action="#" method="post">
       <p>Client Secret : <br>
       <input type="password" id="pass" name="pass"></p>
-      <input type="button" value="button" onclick="gettoken()">
+      <input type="button" id="btn" value="button">
     </form>
     
     <script type="module">
@@ -19,12 +19,8 @@
       import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
       
       let key = null;
-      const Run = (async () => {
-       key = ((new URL(document.location)).searchParams).get('code');
-        console.log(key);
-      })();
-            
-      export function gettoken() {
+      
+      function gettoken() {
         request("GET https://github.com/login/oauth/access_token",{
           client_id : "aabf80bed3afc1979637",
           client_secret : document.getElementById("pass"),
@@ -34,6 +30,16 @@
         });
         return;
       }
+      
+      const Run = (async () => {
+       key = ((new URL(document.location)).searchParams).get('code');
+        console.log(key);
+        
+        //window.hello = hello
+        document.getElementById('btn').addEventListener('click', gettoken)
+      })();
+            
+
         
     </script>
   </body>
