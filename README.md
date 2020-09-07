@@ -5,6 +5,12 @@ GitHub Pages
 <https://haitusense.github.io/kanbantest/Pages/mermaid.html>  
 <https://haitusense.github.io/kanbantest/Pages/add.html>  
 
+## Description
+
+## なんでGithub
+
+ticket(issue)+kanbanをwebアクセスで閲覧できる環境がある。一応、privateもある。
+
 ## Github制限
 
 - レポジトリサイズ : なし（1GB未満推奨）
@@ -39,9 +45,14 @@ GitHub Pages
     - issuesからproject cardは```application/vnd.github.starfox-preview```で読める？
 - GraphQL API v4
   - OAuthトークン必須
-
   
 privateへのアクセス前提なのでGraphQL API v4でよさそう
+
+## 認証
+
+- id, pass : repo設定で権限のコントロール。
+- Personal access tokens : ownerで権限のコントロールできる。管理面倒
+- OAuth App : 基本クライアント側で処理なので、Client_Secretの管理ができない
 
 ## アクセストークン
 
