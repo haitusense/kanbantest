@@ -14,6 +14,7 @@
       <input type="button" id="btn" value="button">
     </form>
     
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module">
       import { request } from "https://cdn.skypack.dev/@octokit/request";
       import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
@@ -21,11 +22,15 @@
       function gettoken(key) {
         let client_id = "aabf80bed3afc1979637";
         let client_secret = document.getElementById("pass");
-        fetch(`https://github.com/login/oauth/access_token?code=${key}&client_id=${client_id}&client_secret=${client_secret}`)
-        .then(dst => {
-          console.log(dst);
+        axios.post('https://github.com/login/oauth/access_token', {
+          params: {
+            code: key,
+            client_id: client_id,
+            client_secret: client_secret,
+          }
+        }).then((response) => {
+          console.log(response);
         });
-        return;
       }
       
       const Run = (async () => {
