@@ -17,7 +17,7 @@
         let client_id = <client_id>;
         let client_secret = document.getElementById("pass");
 
-        axios.post('https://github.com/login/oauth/access_token', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
           code: code,
           client_id: client_id,
           client_secret: client_secret,
@@ -26,6 +26,9 @@
         }).catch(() =>{
            console.log("Can’t access " + url + " response. Blocked by browser?");
         });
+        // クライアント側だけで処理しようとするとcors errにひっかかるので串さすか、自分でサーバー立てるか
+        // 串だと結局セキュリティリスクがあるので、サーバ側でclient_secret処理できるようにするべき
+        // https://github.com/prose/gatekeeper 参照
       }
       
       const Run = (async () => {
