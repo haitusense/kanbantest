@@ -135,6 +135,7 @@ class GithubAPI {
       console.log(issue);
       return {
         ...(issue.data),
+        kanban : undefined,
         comments : {
           count : issue.data.comments,
           data : comments
@@ -146,25 +147,37 @@ class GithubAPI {
           issue(number: ${num}) {
             url
             body
+            title
             comments(first: 100) {
               nodes {
                 body
               }
             }
+            projectCards {
+              nodes {
+                column {
+                  name
+                }
+              }
+            }
           }
         }
       }`).then(dst => {
+        const src = dst.repository.issue;
         return {
-          ...(dst.repository.issue),
-          html_url : dst.repository.issue.url,
+          ...(src),
+          html_url : src.url,
+          kanban : src.projectCards.nodes.length == 1 ? src.projectCards.nodes[0].column.name : undefined,
           comments : {
-            //count : issue.data.comments,
-            //data : comments
+            count : src.comments.nodes.length,
+            data : src.comments.nodes
           }
         };
       });
     }
   }
+
+/** */
 
   async asyncGetIssueFromNodeId(node_id) {
     if(this.accessToken == undefined){

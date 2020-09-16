@@ -195,7 +195,8 @@
     }, [children]);
     return (
       <div>
-        id : {children}
+        id : {children} kanban : {val.kanban}
+        <MermaidChart.ProcessGraph value={val.kanban} />
         <div>
           title : {val.title}<br/>
           url : {val.html_url}<br/>
