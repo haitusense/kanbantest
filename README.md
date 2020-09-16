@@ -1,9 +1,10 @@
 # kanbantest
 
 GitHub Pages  
-<https://haitusense.github.io/kanbantest/Pages/issue.html>  
-<https://haitusense.github.io/kanbantest/Pages/mermaid.html>  
-<https://haitusense.github.io/kanbantest/Pages/add.html>  
+  
+with React : <https://haitusense.github.io/kanbantest/Pages/>  
+Get issue Test : <https://haitusense.github.io/kanbantest/Pages/issue.html>
+Add issue Test : <https://haitusense.github.io/kanbantest/Pages/add.html>  
 
 ## Description
 
