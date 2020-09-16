@@ -2,29 +2,51 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>HAITUSENSE KANBAN</title>
+    <title>React Test</title>
   </head>
   <body>
+
+    <!-- Fonts and Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- root -->
     <div id="root"></div>
 
+    <!-- bacel and React -->
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"></script>
+
+    <!-- Material Design -->
+    <script crossorigin src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js"></script>
+
+    <!-- Mermaid -->
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
     
+    <!-- for Logic -->
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script src="https://bundle.run/buffer"></script>
     <script type="module">
       import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
       import { graphql } from "https://cdn.skypack.dev/@octokit/graphql";
       window.Octokit = Octokit;
       window.graphql = graphql;
     </script>
+
+    <!-- module -->
     <script type="text/babel" src="./GithubAPI.jsx"></script>
-    <script type="text/babel" src="./index.jsx"></script>
+    <script type="text/babel" src="./Components.jsx"></script>
+    <script type="text/babel" src="./Chart.jsx"></script>
+    <script type="text/babel" src="./App.jsx"></script>
     <script type="text/babel">
+      /******** Render ********/
       ReactDOM.render(<App /> , document.getElementById('root'));
+
+      const Run = (async () => {
+      
+      })();
     </script>
   </body>
 </html>
