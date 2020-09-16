@@ -3,7 +3,7 @@
 GitHub Pages  
   
 with React : <https://haitusense.github.io/kanbantest/Pages/>  
-Get issue Test : <https://haitusense.github.io/kanbantest/Pages/issue.html>
+Get issue Test : <https://haitusense.github.io/kanbantest/Pages/issue.html>  
 Add issue Test : <https://haitusense.github.io/kanbantest/Pages/add.html>  
 
 ## Description
