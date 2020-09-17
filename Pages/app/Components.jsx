@@ -1,63 +1,126 @@
 /******** Components ********/
 (() => {
-  function Loading() {
+
+  // substitute for import
+  //const CssBaseline = MaterialUI.CssBaseline;
+
+  const Backdrop = MaterialUI.Backdrop;
+  const CircularProgress = MaterialUI.CircularProgress;
+
+  const AppBar = MaterialUI.AppBar;
+  const Toolbar = MaterialUI.Toolbar;
+  const Typography = MaterialUI.Typography;
+  const Drawer = MaterialUI.Drawer;
+  const IconButton = MaterialUI.IconButton;
+  const Divider = MaterialUI.Divider;
+  const List = MaterialUI.List;
+  const ListItem  = MaterialUI.ListItem ;
+  const ListItemText = MaterialUI.ListItemText;
+
+  const Link = MaterialUI.Link;
+
+  // AppBar
+
+  const Loading =()=>{
     const { state } = React.useContext(Store);
     return (
-      <MaterialUI.Backdrop open={state.busy} style={{zIndex:"100"}}>
-        <MaterialUI.CircularProgress color="inherit"/>
-      </MaterialUI.Backdrop>
+      <Backdrop open={state.busy} style={{zIndex:"100"}}>
+        <CircularProgress color="inherit"/>
+      </Backdrop>
     );
   }
   
-  function ButtonAppBar() {
-    const classes = useStyles();
-    return (
-      <div className={classes.root}>
-        <MaterialUI.AppBar position="static">
-          <MaterialUI.Toolbar>
-            <MaterialUI.IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MaterialUI.Icon className="fa fa-plus-circle">menu</MaterialUI.Icon>
-            </MaterialUI.IconButton>
-            <MaterialUI.Typography variant="h6" className={classes.title}>
-              HAITUSENSE KANBAN
-            </MaterialUI.Typography>
-            <MaterialLogin/>
-          </MaterialUI.Toolbar>
-        </MaterialUI.AppBar>
-      </div>
-    );
-  }
-  
-  function Message () {
+  const Message =()=> {
     const { state, dispatch } = React.useContext(Store);
     return <h2><font color="#ff0000">{state.err}</font></h2>
   }
   
-  function Copyright() {
+  const Copyright =()=> {
     return (
-      <MaterialUI.Typography variant="body2" color="textSecondary" align="center">
+      <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <MaterialUI.Link color="inherit" href="http://haitusense.com/">
+        <Link color="inherit" href="http://haitusense.com/">
           Haitusense Co,.Ltd.
-        </MaterialUI.Link>{' '}
+        </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
-      </MaterialUI.Typography>
+      </Typography>
     );
   }
-  
-  const Selector =()=> {
+
+  const Selector =({children})=> {
     const classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
-    switch (state.region) {
-      case 'search':
-        return (<><SearchIssue/></>);
-      default:
-        return (<><div>404</div></>);
+    if(Object.keys(children).indexOf(state.region) !== -1)
+    {
+      return (<>{children[state.region]}</>);
+    }else{
+      return (<><div>404</div></>);
     }
   }
-  //<MermaidGraph/>
-  //<SearchIssue/>
+
+  const MaterialAppBar =({children})=> {
+    const classes = useStyles();
+    const { state, dispatch } = React.useContext(Store);
+    const [open, setOpen] = React.useState(false);
+    const handleDrawerOpen = () => setOpen(true);
+    const handleDrawerClose = () => setOpen(false);
+    const navi = React.useCallback((e) => dispatch({ type: ActionType.NAVIGATE, value : e.target.textContent}), [dispatch]);
+    return (
+      <div className={classes.root}>
+        <Loading/>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton}
+              onClick={handleDrawerOpen} 
+              color="inherit" aria-label="open drawer">
+              <MaterialUI.Icon className="fa fa-plus-circle">menu</MaterialUI.Icon>
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Haitusense KANBAN
+            </Typography>
+            <MaterialLogin/>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="persistent" anchor="left" open={open} >
+          <div>
+            <IconButton onClick={handleDrawerClose}>close</IconButton>
+          </div>
+          <Divider />
+          <List>
+          {Object.keys(children).map((text, index) => (
+            <ListItem button key={text} onClick={navi}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        </Drawer>
+        <div className={classes.toolbar}>
+          <Message/>
+          <Selector>
+            {children}
+          </Selector>
+          <Copyright/>
+        </div>
+      </div>
+    );
+  }
+
+  //className={classes.drawerHeader}
+  /**
+    drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }, 
+   
+   */
+
+  
+
   
   
   const OldLogin =()=> {
@@ -206,10 +269,8 @@
     );
   }
 
-  window.Loading = Loading;
-  window.ButtonAppBar = ButtonAppBar;
-  window.Message = Message;
-  window.Copyright = Copyright;
-  window.Selector = Selector;
+  // substitute for export
+  window.MaterialAppBar = MaterialAppBar;
+  window.SearchIssue = SearchIssue;
 
 })();

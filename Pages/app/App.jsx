@@ -7,7 +7,9 @@ const ActionType = {
   LOGOUT : "LOGOUT",
   DEFAULT : "DEFAULT",
   ASYNCSEARCHISSUE : "ASYNCSEARCHISSUE",
-  ERR : "ERR"
+  ERR : "ERR",
+
+  NAVIGATE : "NAVIGATE"
 }
 
 const api = new GithubAPI();
@@ -17,11 +19,12 @@ const repo = 'kanbantest';
 /******** Reducers, Store ********/
 
 const initialState = {
+  region : 'search',
+
   authName : undefined,
   busy : false,
   token : undefined,
   err : undefined,
-  region : 'search',
 
   issuelist: { data : [], count : 0}
 }
@@ -41,6 +44,7 @@ const reducer = createReducer({
   RESET: () => initialState,
   ISBUSY : (state, action) => ({ ...state, busy : true }),
   ERR : (state, action) => ({ ...state, err : action.value }),
+  NAVIGATE : (state, action) => ({ ...state, region : action.value }),
   ASYNCLOGIN : (state, action) => {
     const nextState = { ...state };
     nextState.authName = action.value;
@@ -107,6 +111,16 @@ const useStyles = MaterialUI.makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  appBar: {
+    //marginLeft: drawerWidth,
+    //[theme.breakpoints.up('sm')]: {
+    //  width: `calc(100% - ${drawerWidth}px)`,
+    //},
+  },
+  toolbar2: theme.mixins.toolbar,
+  toolbar: {
+    marginTop : 80,
+  },
   textField: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
@@ -153,11 +167,12 @@ const Provider = ({children}) => {
 }
 
 const App = () => (
-  <Provider> 
-    <Loading  />
-    <ButtonAppBar/>
-    <Message/>
-    <Selector/>
-    <Copyright/>
+  <Provider>
+    <MaterialAppBar>
+      {{
+        search : (<SearchIssue/>),
+        map : (<MermaidChart.Map/>),
+      }}
+    </MaterialAppBar>
   </Provider>
 );
