@@ -27,6 +27,7 @@
     <!-- for Logic -->
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
     <script src="https://bundle.run/buffer"></script>
     <script type="module">
       import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
@@ -37,8 +38,12 @@
 
     <!-- module -->
     <script type="text/babel" src="./app/GithubAPI.jsx"></script>
-    <script type="text/babel" src="./app/Components.jsx"></script>
-    <script type="text/babel" src="./app/Chart.jsx"></script>
+    <script type="text/babel" src="./app/Components/AppBar.jsx"></script>
+    <script type="text/babel" src="./app/Components/Components.jsx"></script>
+    <script type="text/babel" src="./app/Components/Chart.jsx"></script>
+    <script type="text/babel" src="./app/Components/SignIn.jsx"></script>  
+    <script type="text/babel" src="./app/Components/Signature.jsx"></script>         
+
     <script type="text/babel" src="./app/App.jsx"></script>
     <script type="text/babel">
       /******** Render ********/
