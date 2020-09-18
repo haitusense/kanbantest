@@ -1,16 +1,28 @@
 /******** Actions, ActionCreater ********/
 
-const ActionType = {
+/*
+const ActionType2 = {
   RESET : 'RESET',
   ISBUSY : 'ISBUSY',
   ASYNCLOGIN : "ASYNCLOGIN",
-  LOGOUT : "LOGOUT",
-  DEFAULT : "DEFAULT",
-  ASYNCSEARCHISSUE : "ASYNCSEARCHISSUE",
   ERR : "ERR",
-
   NAVIGATE : "NAVIGATE"
 }
+*/
+const Actions = [
+  'RESET',
+  'ISBUSY',
+  "ASYNCLOGIN",
+  "LOGOUT",
+  "DEFAULT",
+  "ASYNCSEARCHISSUE",
+  "ERR",
+  "NAVIGATE",
+]
+const ActionType = Actions.reduce((accumulator, currentValue) =>{
+  if (currentValue in accumulator) throw new Error('Err : Action Creater');
+  return ({...accumulator, [currentValue] : currentValue});
+},{});
 
 const api = new GithubAPI();
 const owner = 'haitusense';
@@ -19,10 +31,10 @@ const repo = 'kanbantest';
 /******** Reducers, Store ********/
 
 const initialState = {
-  region : 'search',
+  region : 'Test',
+  busy : false,
 
   authName : undefined,
-  busy : false,
   token : undefined,
   err : undefined,
 
@@ -35,7 +47,8 @@ function createReducer(handlers) {
     if (handlers.hasOwnProperty(action.type)) {
       return handlers[action.type](state, action);
     } else {
-      return state;
+      throw new Error()
+      //return state;
     }
   };
 }
@@ -107,54 +120,6 @@ const Store = React.createContext();
 
 /******** Components ********/
 
-const useStyles = MaterialUI.makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  appBar: {
-    //marginLeft: drawerWidth,
-    //[theme.breakpoints.up('sm')]: {
-    //  width: `calc(100% - ${drawerWidth}px)`,
-    //},
-  },
-  toolbar2: theme.mixins.toolbar,
-  toolbar: {
-    marginTop : 80,
-  },
-  textField: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    '& input' : {
-      color: 'LightGrey',
-    },
-    '& label' : {
-      foregroundColor : 'whitesmoke', 
-      color: 'LightGrey',
-      '&.Mui-focused': { color: 'whitesmoke' }
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': { 
-        //foregroundColor : 'whitesmoke', 
-        borderColor: 'LightGrey', 
-        //backgroundColor: 'SteelBlue', 
-      },
-      '&:hover fieldset': { borderColor: 'white' },
-      '&.Mui-focused fieldset': {
-        borderColor: 'whitesmoke',
-      },
-
-    }
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  }
-}));
-
 /******** Provider, Render ********/
 
 const Provider = ({children}) => {
@@ -170,8 +135,13 @@ const App = () => (
   <Provider>
     <MaterialAppBar>
       {{
-        search : (<SearchIssue/>),
-        map : (<MermaidChart.Map/>),
+        ["Test"] : (<Signature/>),
+        ["SignIn"] : (<SignIn/>),
+        ["State Of Progress"] : (<div>under construction</div>),
+        ["View Lot State"] : (<SearchIssue/>),
+        ["View Lot Trend"] : (<div>under construction</div>),
+        ["Map"] : (<MermaidChart.Map/>),
+        ["issue a TravelSheet"] : (<MermaidChart.Map/>),
       }}
     </MaterialAppBar>
   </Provider>
