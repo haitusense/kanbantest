@@ -1,21 +1,10 @@
 (() => {
 
-  const callSignature =(func)=> requirejs(
-    ['https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js']
-    , (sig)=>{
-      func(sig);
-    }
-  );
-
-
   const QRCam = ()=>{
     const refVideo = React.useRef();
     const refSnap = React.useRef();
     const refResult = React.useRef();
-    const width = 320;
-    const height = 60;
     React.useEffect(() =>{
-
       //1.
       let width = refSnap.current.width;
       let height = refSnap.current.height;
@@ -36,7 +25,8 @@
           //}
           requirejs(
             ['https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js']
-            , (scanResult)=>{
+            , (jsQR)=>{
+              const scanResult = jsQR(imageData.data, imageData.width, imageData.height);
               if (scanResult) {
                 clearInterval(intervalHandler);
                 if (callback) {
