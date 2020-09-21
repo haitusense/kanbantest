@@ -41,7 +41,7 @@
 
         startScan((scanResult) => {
           // このページの呼び出し元に読み取り結果を返す
-          document.getElementById('result').innerText = scanResult;
+          document.getElementById('result').innerText = scanResult.data;
         });
       };
 
