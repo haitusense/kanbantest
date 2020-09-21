@@ -59,7 +59,7 @@
     return (
       <div>
         <div id="result" ref={refResult}>null</div>
-        <video id="player" ref={refVideo} autoplay></video>
+        <video id="player" ref={refVideo} autoPlay></video>
         <canvas id="snapshot" ref={refSnap} width="480" height="640"></canvas>
       </div>
     )
