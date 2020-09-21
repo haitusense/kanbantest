@@ -3,24 +3,12 @@
 (() => {
 
   // substitute for import
-
-  const Backdrop = MaterialUI.Backdrop;
-  const CircularProgress = MaterialUI.CircularProgress;
-
-  const AppBar = MaterialUI.AppBar;
-  const Toolbar = MaterialUI.Toolbar;
-  const Typography = MaterialUI.Typography;
-  const Drawer = MaterialUI.Drawer;
-  const IconButton = MaterialUI.IconButton;
-  const Divider = MaterialUI.Divider;
-  const List = MaterialUI.List;
-  const ListItem  = MaterialUI.ListItem ;
-  const ListItemText = MaterialUI.ListItemText;
-
-  const Link = MaterialUI.Link;
-
-  
-
+  const {
+    Backdrop, CircularProgress, 
+    AppBar, Toolbar, Typography, Drawer, IconButton,
+    Divider, List, ListItem, ListItemText,
+    Link
+  } = MaterialUI;
 
   //Search Issue
   

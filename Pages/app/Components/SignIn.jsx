@@ -3,49 +3,45 @@
 (() => {
 
   // substitute for import
-  const Typography = MaterialUI.Typography;
-  const TextField = MaterialUI.TextField;
-  const Button = MaterialUI.Button;
-
-
+  const {Typography, TextField, Button, Box} = MaterialUI;
 
   const SignIn =()=> {
+    const { state, dispatch } = React.useContext(Store);
     const classes = useStyles();
+    const handleSubmit = React.useCallback((event) =>{
+      event.preventDefault();
+      fetchData({ 
+        type: ActionType.ASYNCLOGIN, 
+        value : event.target.token.value
+      }, dispatch);
+    });
     return (
         <div>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+          <Typography component="h1" variant="h5">Sign in</Typography>
+          <form noValidate onSubmit={handleSubmit}>
+            <Typography variant="caption" ></Typography>
+            <TextField variant="outlined" margin="normal" fullWidth
+              required disabled
+              id="email" name="email" label="Email Address"
               autoComplete="email"
-              autoFocus
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
+            <TextField variant="outlined" margin="normal" fullWidth
+              required disabled
+              id="password" name="password" label="Password"
               type="password"
-              id="password"
               autoComplete="current-password"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
+            <Typography variant="caption" ></Typography>
+            <TextField variant="outlined" margin="normal" fullWidth
+              required
+              id="token" name="token" label="Token"
+              autoFocus
+              type="password"
+              autoComplete="current-password"
+            />
+            <Button type="submit" variant="contained" fullWidth
               color="primary"
-              className={classes.submit}
-            >
+              className={classes.submit} >
               Sign In
             </Button>
           </form>

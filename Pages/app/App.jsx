@@ -29,9 +29,17 @@ const owner = 'haitusense';
 const repo = 'kanbantest';
 
 /******** Reducers, Store ********/
+const getParams = (val, def)=>{
+  const dst = ((new URL(document.location)).searchParams).get(val);
+  return dst ? dst : def;
+};
+//if(getParams('token',undefined)!=undefined)
+//{
+//  api.changeAuth(getParams('token',undefined));
+//}
 
 const initialState = {
-  region : 'Test',
+  region : getParams('region', 'Sign In'),
   busy : false,
 
   authName : undefined,
@@ -135,14 +143,16 @@ const App = () => (
   <Provider>
     <MaterialAppBar>
       {{
-        ["Test"] : (<Signature/>),
-        ["SignIn"] : (<SignIn/>),
+        ["Sign In"] : (<SignIn/>),
         ["State Of Progress"] : (<div>under construction</div>),
         ["View Lot State"] : (<SearchIssue/>),
-        ["View Lot Trend"] : (<div>under construction</div>),
+        ["View Lot Trend"] : (<RenderLineChart/>),
         ["Map"] : (<MermaidChart.Map/>),
-        ["issue a TravelSheet"] : (<MermaidChart.Map/>),
+        ["Regist a TravelSheet"] : (<RegistIssue/>),
+        ["Cam Test"] : (<QRCam/>),
       }}
     </MaterialAppBar>
   </Provider>
 );
+
+ReactDOM.render(<App/> , document.getElementById('root'));

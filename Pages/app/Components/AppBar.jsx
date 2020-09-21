@@ -52,26 +52,15 @@ const useStyles = MaterialUI.makeStyles((theme) => ({
 
   // substitute for import
   //const CssBaseline = MaterialUI.CssBaseline;
+  const {
+    Backdrop, CircularProgress, 
+    AppBar, Toolbar, Typography, Drawer, IconButton,
+    Divider, List, ListItem, ListItemText,
+    TextField, Button, Link,
 
-  const Backdrop = MaterialUI.Backdrop;
-  const CircularProgress = MaterialUI.CircularProgress;
+    Icon, Box, Container
+  } = MaterialUI;
 
-  const AppBar = MaterialUI.AppBar;
-  const Toolbar = MaterialUI.Toolbar;
-  const Typography = MaterialUI.Typography;
-  const Drawer = MaterialUI.Drawer;
-  const IconButton = MaterialUI.IconButton;
-  const Divider = MaterialUI.Divider;
-  const List = MaterialUI.List;
-  const ListItem  = MaterialUI.ListItem ;
-  const ListItemText = MaterialUI.ListItemText;
-  const TextField = MaterialUI.TextField;
-  const Button = MaterialUI.Button;
-  const Link = MaterialUI.Link;
-
-  const Icon = MaterialUI.Icon;
-  const Box = MaterialUI.Box;
-  const Container = MaterialUI.Container;
   // AppBar
 
   const Loading =()=>{
@@ -117,7 +106,28 @@ const useStyles = MaterialUI.makeStyles((theme) => ({
       )
     }
   }
-  
+
+  const MaterialLogin2 =()=> {
+    const classes = useStyles();
+    const { state, dispatch } = React.useContext(Store);
+    const logout = React.useCallback((e) => dispatch({ type: ActionType.LOGOUT}), [dispatch]);
+    const navi = React.useCallback((e) => dispatch({ type: ActionType.NAVIGATE, value :"Sign In"}), [dispatch]);
+    if(state.authName == undefined)
+    {
+      return (
+        <>
+          <Button color="inherit" onClick={navi}>Sign In</Button>
+        </>
+      )
+    }else{
+      return (
+        <>
+          <p>Signed in as <b>{state.authName}</b></p>
+          <Button color="inherit" onClick={logout}>Logout</Button>
+        </>
+      )
+    }
+  }
   const Message =()=> {
     const { state, dispatch } = React.useContext(Store);
     return <h2><font color="#ff0000">{state.err}</font></h2>
@@ -186,7 +196,7 @@ const useStyles = MaterialUI.makeStyles((theme) => ({
             <Typography variant="h6" className={classes.title}>
               Haitusense KANBAN
             </Typography>
-            <MaterialLogin/>
+            <MaterialLogin2/>
           </Toolbar>
         </AppBar>
         <Drawer anchor="left" role="presentation" open={open}      

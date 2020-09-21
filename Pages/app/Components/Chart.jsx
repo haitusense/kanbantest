@@ -1,5 +1,7 @@
 (() => {
 
+  const {LineChart, Line} = Recharts;
+  
   mermaid.initialize({
     startOnLoad:false,
     securityLevel: 'loose',
@@ -99,12 +101,31 @@ function Map () {
   return <pre>{AsciiMap(map)}</pre>
 }
 
+const RenderLineChart = ()=>{
+  const [data, setData] = React.useState({});
+  React.useEffect(() =>{
+    api.asyncGetContent(owner, repo, "Reports/FT-1.yml",'yml').then((dst)=>{
+      const a = Object.keys(dst).map((i)=>({key:i, ...dst[i]}));
+      setData(a);
+    })
+  } , []);
+  return(
+    <div>
+    <LineChart width={320} height={200} data={data} >
+      <Line type="monotone" 
+        dataKey="A" stroke="#8884d8" />
+    </LineChart>
+    </div>
+  );
+}
+
   window.MermaidChart = {
     ProcessGraph,
     Chart,
     Gantt,
     Map
   }
+  window.RenderLineChart = RenderLineChart
 
 })();
 
