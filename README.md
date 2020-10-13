@@ -2,7 +2,8 @@
 
 GitHub Pages  
   
-with React : <https://haitusense.github.io/kanbantest/Pages/>  
+with React : <https://haitusense.github.io/kanbantest/Pages/>
+with React : <https://haitusense.github.io/kanbantest/html/>  
 
 ## Description
 
