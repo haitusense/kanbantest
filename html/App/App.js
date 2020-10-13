@@ -20,6 +20,7 @@ define(
 
   /* Regions */
   const regionManeger = {
+    Home : lazy('jsx!App/Components/Home'),
     Default : (<div>under construction</div>),
   };
 
