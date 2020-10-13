@@ -13,10 +13,12 @@ const globalVariables = {
   href : 'https://github.com/haitusense'
 };
 
+const regionPaths = {
+  Home : 'jsx!App/Components/Home',
+};
+
 (async()=>{
-
   window.babelConfig = {};
-
   if(babelflag){
     requirejs.config({
       paths: {
@@ -40,6 +42,5 @@ const globalVariables = {
       },
     });     
   }
-
   require(['jsx!App/App']);
 })();
