@@ -1,12 +1,17 @@
-  const asyncOctokit = async () =>{ 
-    let hoge = await import('https://cdn.skypack.dev/@octokit/rest');
-    return new hoge.Octokit();
-  }
+ const asyncOctokit = async () =>{ 
+   let hoge = await import('https://cdn.skypack.dev/@octokit/rest');
+   return new hoge.Octokit();
+ }
   
-  const asyncGraphql = async () =>{
-    let dst = await import('https://cdn.skypack.dev/@octokit/graphql');
-    return dst;
-  }
+ const asyncGraphql = async () =>{
+   let dst = await import('https://cdn.skypack.dev/@octokit/graphql');
+   return dst;
+ }
+  
+const globalVariables = {
+  organization : 'haitusense Co.,Ltd.',
+  href : 'https://github.com/haitusense'
+};
 
 (async()=>{
 
