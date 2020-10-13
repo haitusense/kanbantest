@@ -1,9 +1,9 @@
 # kanbantest
 
-GitHub Pages  
+GitHub Pages with React
   
-with React : <https://haitusense.github.io/kanbantest/Pages/>
-with React : <https://haitusense.github.io/kanbantest/html/>  
+old : <https://haitusense.github.io/kanbantest/Pages/>  
+new : <https://haitusense.github.io/kanbantest/html/>  
 
 ## Description
 
