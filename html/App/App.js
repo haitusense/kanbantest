@@ -19,10 +19,8 @@ define(
   )=>{
 
   /* Regions */
-  const regionManeger = {
-    Home : lazy('jsx!App/Components/Home'),
-    Default : (<div>under construction</div>),
-  };
+  const objectMap = (obj, fun) => Object.fromEntries(Object.entries(obj).map(fun));
+  const regionManeger = objectMap(regionPaths, ([ key, val ]) => [ key, lazy(val) ]);
 
   /* EventListener */
   const eventTarget = {
